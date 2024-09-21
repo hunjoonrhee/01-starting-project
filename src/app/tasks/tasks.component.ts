@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { TaskComponent } from "./task/task.component";
 import { DUMMY_TASKS } from '../data/dummy-tasks';
+import { User } from '../models/user';
+import { Task } from '../models/task';
 
 
 @Component({
@@ -12,8 +14,12 @@ import { DUMMY_TASKS } from '../data/dummy-tasks';
 })
 export class TasksComponent {
 
-  @Input() selectedUserName?: string | undefined;
+  @Input() selectedUser?: User;
   tasks = DUMMY_TASKS;
+
+  get tasksByUser() {
+    return this.tasks.filter((task) => task.userId === this.selectedUser?.id)
+  }
 
 
 }
