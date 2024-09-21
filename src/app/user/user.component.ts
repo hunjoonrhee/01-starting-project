@@ -12,6 +12,7 @@ import { User } from '../models/user';
 })
 export class UserComponent {
   @Input({ required: true }) user!: User
+  @Input({ required: true }) isSelected!: boolean;
   @Output() select = new EventEmitter<string>();
   // select = output<string>()
 
