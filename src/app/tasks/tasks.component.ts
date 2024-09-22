@@ -3,6 +3,7 @@ import { TaskComponent } from './task/task.component';
 import { DUMMY_TASKS } from '../data/dummy-tasks';
 import { User } from '../models/user';
 import { NewTaskComponent } from './new-task/new-task.component';
+import { NewTask, Task } from '../models/task';
 
 @Component({
   selector: 'app-tasks',
@@ -12,7 +13,7 @@ import { NewTaskComponent } from './new-task/new-task.component';
   styleUrl: './tasks.component.css',
 })
 export class TasksComponent {
-  @Input() selectedUser?: User;
+  @Input({ required: true }) selectedUser!: User;
   isAddingTask = false;
   tasks = DUMMY_TASKS;
 
@@ -29,5 +30,16 @@ export class TasksComponent {
 
   onCancel(canceled: boolean) {
     this.isAddingTask = canceled;
+  }
+
+  addNewTask(newTask: NewTask) {
+    this.tasks.unshift({
+      id: new Date().getTime().toString(),
+      userId: this.selectedUser.id,
+      title: newTask.title,
+      summary: newTask.summary,
+      dueDate: newTask.dueDate,
+    });
+    this.isAddingTask = false;
   }
 }
