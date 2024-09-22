@@ -2,16 +2,18 @@ import { Component, Input } from '@angular/core';
 import { TaskComponent } from './task/task.component';
 import { DUMMY_TASKS } from '../data/dummy-tasks';
 import { User } from '../models/user';
+import { NewTaskComponent } from './new-task/new-task.component';
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [TaskComponent],
+  imports: [TaskComponent, NewTaskComponent],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
 })
 export class TasksComponent {
   @Input() selectedUser?: User;
+  isAddingTask = false;
   tasks = DUMMY_TASKS;
 
   get tasksByUser() {
@@ -20,5 +22,12 @@ export class TasksComponent {
 
   onDeleteTask(id: string) {
     this.tasks = this.tasks.filter((task) => task.id !== id);
+  }
+  openNewTaskDialog() {
+    this.isAddingTask = true;
+  }
+
+  onCancel(canceled: boolean) {
+    this.isAddingTask = canceled;
   }
 }

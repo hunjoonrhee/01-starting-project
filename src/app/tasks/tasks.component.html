@@ -2,7 +2,7 @@
   <header>
     <h2>{{ selectedUser?.name }}'s Tasks</h2>
     <menu>
-      <button>Add a Task</button>
+      <button (click)="openNewTaskDialog()">Add a Task</button>
     </menu>
   </header>
   <ul>
@@ -13,3 +13,6 @@
     }
   </ul>
 </section>
+@if(isAddingTask) {
+<app-new-task (cancelAddingNewTask)="onCancel($event)" />
+}
