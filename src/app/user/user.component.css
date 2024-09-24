@@ -1,9 +1,3 @@
-div {
-    border-radius: 6px;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.1);
-    overflow: hidden;
-}
-
 button {
     display: flex;
     align-items: center;
@@ -23,14 +17,14 @@ button:hover,
 button:active,
 .active {
     background-color: #9965dd;
-    color: #150722; 
+    color: #150722;
 }
 
 img {
     width: 2rem;
     object-fit: contain;
     border-radius: 50%;
-    box-shadow: 0 1px 8px rgba(0,0,0,0.3);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
 }
 
 span {

@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { TaskComponent } from './task/task.component';
 import { DUMMY_TASKS } from '../data/dummy-tasks';
 import { User } from '../models/user';
 import { NewTaskComponent } from './new-task/new-task.component';
 import { NewTask, Task } from '../models/task';
+import { TasksService } from './tasks.service';
 
 @Component({
   selector: 'app-tasks',
@@ -14,32 +15,20 @@ import { NewTask, Task } from '../models/task';
 })
 export class TasksComponent {
   @Input({ required: true }) selectedUser!: User;
+
+  private tasksService = inject(TasksService);
+
   isAddingTask = false;
-  tasks = DUMMY_TASKS;
 
-  get tasksByUser() {
-    return this.tasks.filter((task) => task.userId === this.selectedUser?.id);
+  get selectedUserTasks() {
+    return this.tasksService.getUserTasks(this.selectedUser.id);
   }
 
-  onDeleteTask(id: string) {
-    this.tasks = this.tasks.filter((task) => task.id !== id);
-  }
   openNewTaskDialog() {
     this.isAddingTask = true;
   }
 
-  onCancel(canceled: boolean) {
-    this.isAddingTask = canceled;
-  }
-
-  addNewTask(newTask: NewTask) {
-    this.tasks.unshift({
-      id: new Date().getTime().toString(),
-      userId: this.selectedUser.id,
-      title: newTask.title,
-      summary: newTask.summary,
-      dueDate: newTask.dueDate,
-    });
+  onCloseAddTask() {
     this.isAddingTask = false;
   }
 }
